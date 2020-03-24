@@ -34,7 +34,7 @@ http://localhost:8762/withoutRequestParam?name=xiaoming
 
 - 原因：
 
-因为没有用@RequestParam修饰，feign默认行为会是当作参数被@RequestBody修饰一样，为什么Content-Type会是text/plain;charset=UTF-8，这是因为String name这种参数单一参数在接收参数被@RequestBody修饰时候，就是设置成这样的，如果有多个参数会怎么样，
+因为没有用@RequestParam修饰，feign默认行为会是当作参数被@RequestBody修饰一样，为什么Content-Type会是text/plain;charset=UTF-8，这是因为String name这种参数单一参数在接收参数被@RequestBody修饰时候，并且是String的类型，则这种方式可以接收post请求体为raw类型，在postman中包括5种Content-Type可以选择：text/plain，application/javascript，application/json，text/html，application/xml，当选择了其中之一后，String类型接受的就是Content-Type储存的字符串形式。如果@RequestBody修饰的是数值类型，比如int，double，需要用application/json形式传值，在请求体中直接存放1或1.1等种形式的数字，springMVC可以正常进行参数绑定。如果有多个参数会怎么样，
 
 ```java
 @RequestMapping(value = "withoutRequestParam", method = RequestMethod.GET)
