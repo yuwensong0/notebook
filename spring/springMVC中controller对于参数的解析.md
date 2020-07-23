@@ -26,3 +26,14 @@ if (!("application/x-www-form-urlencoded".equals(contentType))) {
 #### 4.`@RequestParam`注解使用注意事项
 
 只能修饰基本类型，如果想用一个实体类封装过多的参数，并且参数的来源的查询参数，则不能在实体类前用`@RequestParam`修饰，有个默认修饰的参数必须有值，可以设置`required=false`可以为空值
+
+#### 5.参数解析
+
+get请求：
+
+http://localhost:6050/qualify/selectByPrimaryKey?pkId和http://localhost:6050/qualify/selectByPrimaryKey?pkId=
+
+当有pkId这个键存在不管有没有 '=' 号，后台获取的参数都是pkId=""，空字符串，而如果没有pkId这个键的话，后台获取的参数是pkId=null
+
+如果用post请求，@RequestBody表示从请求体找值，如果后台是个实体类接受，如果传{}，那么后台所有的属性都是null，如果不传请求体，即请求体为空，那么会报错，如果json和后台入参不匹配，也会报错，比如传个[ ]。
+
